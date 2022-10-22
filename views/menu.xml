@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="installments" id="installments_menu"  web_icon="installments,static/description/icon.png"
+        groups="installments.group_manager_installment,installments.group_user_installment"/>
+    </data>
+</odoo>

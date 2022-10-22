@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="installments_form_view" model="ir.ui.view">
+            <field name="name">installment.installment.form</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <form string="installments">
+                    <header>
+                        <button name="open" type="object" string="Open" class="oe_highlight" />
+                        <button name="payment" type="object" string="Payment" class="oe_highlight" />
+                        <button name="settlement" type="object" string="Settlement" class="oe_highlight" />
+
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box" position="inside">
+                                <button class="oe_stat_button" type="object" name="get_inv" groups="installments.group_manager_installment"  icon="fa-pencil-square-o">
+                                <field string="invoice" id="inv" name="inv_count" widget="statinfo"/>
+                                </button>
+                           </div>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="name"/>
+                                <field name="reference"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="customer" />
+                                <field name="journal" />
+                                <field name="account" />
+                            </group>
+                            <group>
+                                <field name="analytic_account" />
+                                <field name="analytic_tag" widget="many2many_tags"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page id="payment" string="payment">
+                                <field name="payment_ids" widget="section_and_note_one2many" mode="tree" >
+                                    <tree  string="payment" >
+                                        <field name="partner_id" />
+                                        <field name="amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="installments_search_view" model="ir.ui.view">
+            <field name="name">installment.installment.search</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <search string="installments">
+                    <group expand="1" string="Group By">
+                        <filter string="name" name="name" domain="[]"
+                                context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="installments_tree_view" model="ir.ui.view">
+            <field name="name">installment.installment.tree</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <tree string="Installments">
+                    <field name="name"/>
+                    <field name="reference"/>
+                    <field name="date"/>
+                    <field name="customer" widget="selection"/>
+                    <field name="journal" widget="selection"/>
+                    <field name="account" widget="selection"/>
+                    <field name="analytic_account" widget="selection"/>
+                    <field name="analytic_tag" widget="many2many_tags"/>
+                    <field name="amount" widget="monetary"/>
+                    <field name="notes"/>
+                    <field name="state"  widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="installments_graph_view" model="ir.ui.view">
+            <field name="name">installment.installment.graph</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <graph string="installments">
+                    <field name="name"/>
+                    <field name="amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="installments_pivot_view" model="ir.ui.view">
+            <field name="name">installment.installment.pivot</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <pivot string="installments">
+                    <field name="name" type="row"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+
+        <record id="installments_kanban_view" model="ir.ui.view">
+            <field name="name">installment.installment.kanban</field>
+            <field name="model">installment.installment</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="reference"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_res_partner_kanban">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="installments_act_window" model="ir.actions.act_window">
+            <field name="name">installments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">installment.installment</field>
+            <field name="view_mode">kanban,tree,form,graph,pivot</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new installments.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="installment" id="main_menu_installment" groups="installments.group_manager_installment,installments.group_user_installment" action="installments_act_window" parent="installments_menu" sequence="0"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_installment_installment_manager,installment.installment,model_installment_installment,group_manager_installment,1,1,1,1
+access_account_analytic_tag,access_account_analytic_tag,analytic.model_account_analytic_tag,group_manager_installment,1,1,1,1
+
+access_installment_installment_user,installment.installment,model_installment_installment,group_user_installment,1,1,0,0
+access_account_analytic_tag,access_account_analytic_tag,analytic.model_account_analytic_tag,group_manager_installment,1,1,1,1
